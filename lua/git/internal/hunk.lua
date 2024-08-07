@@ -1,6 +1,7 @@
 local M = {}
 
 function M.new(file_header, header)
+	if type(file_header) ~= "table" then error("file header in hunk must be a table") end
 	local hunk = {}
 	-- file_header is like:
 	-- diff --git a/plugin/git.vim b/plugin/git.vim
@@ -11,8 +12,20 @@ function M.new(file_header, header)
 	-- header is like:
 	-- @@ -93,10 +93,6
 	hunk.file_header = file_header
-	hunk.start_line = tonumber(string.match(header, '@@ .%d+,%d+ .(%d+),.*'))
-	hunk.end_line = hunk.start_line + tonumber(string.match(header, '@@ .%d+,%d+ .%d+,(%d+).*'))
+	local old_pos, old_len = string.match(header, '@@ .(%d+),(%d+) ')
+	if old_pos == nil then
+		old_pos = string.match(header, '@@ .(%d+) ')
+		old_len = 1
+	end
+	local new_pos, new_len = string.match(header, ' .(%d+),(%d+) @@')
+	if new_pos == nil then
+		new_pos = string.match(header, ' .(%d+) @@')
+		new_len = 1
+	end
+	hunk.old_pos = tonumber(old_pos)
+	hunk.old_len = tonumber(old_len)
+	hunk.new_pos = tonumber(new_pos)
+	hunk.new_len = tonumber(new_len)
 	hunk.content = {header}
 	return hunk
 end

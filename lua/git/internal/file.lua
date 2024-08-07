@@ -20,7 +20,7 @@ function M.find_hunk_after_line(file, line_number)
 	if file == nil then return nil end
 
 	for _, h in pairs(file.hunks) do
-		if line_number <= h.start_line or line_number < h.end_line then
+		if line_number < h.new_pos + h.new_len then
 			return h
 		end
 	end
