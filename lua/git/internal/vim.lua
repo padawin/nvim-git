@@ -22,6 +22,7 @@ function M.create_buffer_with_diff(hunk_content)
 		'WinClosed',
 		{
 			callback = function()
+				vim.cmd('write')
 				local error = close_diff_window(buf, file_path)
 				if error ~= nil then
 					print(error)
