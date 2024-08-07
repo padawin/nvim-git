@@ -1,0 +1,20 @@
+local table = require("lua/git/internal/table")
+
+describe("table test", function()
+	describe("table.merge", function()
+		it("can merge two non empty tables", function()
+			local res = table.merge({1, 2}, {3, 4})
+			assert.are.same(res, {1, 2, 3, 4})
+		end)
+		it("can merge an empty table in a non empty one, resulting in the initial table", function()
+			local t1 = {1, 2}
+			local res = table.merge(t1, {})
+			assert.are.same(res, t1)
+		end)
+		it("can merge a table in an empty one, resulting in the second table", function()
+			local t1 = {1, 2}
+			local res = table.merge({}, t1)
+			assert.are.same(res, t1)
+		end)
+	end)
+end)
