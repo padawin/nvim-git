@@ -1,3 +1,4 @@
+local table_utils = require("lua.git.internal.table")
 local M = {}
 
 function M.new(file_header, header)
@@ -26,13 +27,23 @@ function M.new(file_header, header)
 	hunk.old_len = tonumber(old_len)
 	hunk.new_pos = tonumber(new_pos)
 	hunk.new_len = tonumber(new_len)
-	hunk.content = {header}
+	hunk.content = {}
 	return hunk
 end
 
 function M.add_line(hunk, line)
 	table.insert(hunk.content, line)
 	return hunk
+end
+
+function M.get_content(hunk)
+	return table_utils.merge(
+		hunk.file_header,
+		table_utils.merge(
+			{build_header(hunk)},
+			hunk.content
+		)
+	)
 end
 
 return M

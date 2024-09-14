@@ -1,4 +1,5 @@
 local hunk = require("lua.git.internal.hunk")
+local ins = require 'inspect'
 
 describe("hunk test", function()
 	describe("hunk.new", function()
@@ -61,6 +62,48 @@ describe("hunk test", function()
 			assert.equal(1, h.old_len)
 			assert.equal(1, h.new_pos)
 			assert.equal(1, h.new_len)
+		end)
+	end)
+
+	describe("hunk.get_content", function()
+		local h
+		before_each(function()
+			h = hunk.new(
+				{
+					"diff --git a/example b/example",
+					"index 74f564b..a32da07 100644",
+					"--- a/example",
+					"+++ b/example"
+				},
+				"@@ -1,6 +1,7 @@"
+			)
+			hunk.add_line(h, " context 1")
+			hunk.add_line(h, " context 2")
+			hunk.add_line(h, " context 3")
+			hunk.add_line(h, "+new line")
+			hunk.add_line(h, " context 4")
+			hunk.add_line(h, " context 5")
+			hunk.add_line(h, " context 6")
+		end)
+		it("returns a table with all the lines of a hunk", function()
+			local content = hunk.get_content(h)
+			assert.equal(
+				ins({
+					"diff --git a/example b/example",
+					"index 74f564b..a32da07 100644",
+					"--- a/example",
+					"+++ b/example",
+					"@@ -1,6 +1,7 @@",
+					 " context 1",
+					 " context 2",
+					 " context 3",
+					 "+new line",
+					 " context 4",
+					 " context 5",
+					 " context 6",
+				 }),
+				ins(content)
+			)
 		end)
 	end)
 end)
