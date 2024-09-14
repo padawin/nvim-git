@@ -25,7 +25,7 @@ function M.parse(diff)
 			if currentHunk ~= nil then
 				file.add_hunk(curr_file, currentHunk)
 			end
-			currentHunk = hunk.new(curr_file.header, line)
+			currentHunk = hunk.new(line)
 		else
 			if state == "in_header" then
 				file.complete_header(curr_file, line)

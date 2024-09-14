@@ -3,6 +3,8 @@ local file = require("lua.git.internal.file")
 local git = require("lua.git.internal.git")
 local hunk = require("lua.git.internal.hunk")
 local editor = require("lua.git.internal.vim")
+local table_utils = require("lua.git.internal.table")
+
 local M = {}
 
 function M.run_next_hunk_diff()
@@ -15,7 +17,7 @@ function M.run_next_hunk_diff()
 	if h == nil then
 		return
 	end
-	editor.create_buffer_with_diff(hunk.get_content(h))
+	editor.create_buffer_with_diff(table_utils.merge(files[1].header, hunk.get_content(h)))
 end
 
 return M
