@@ -53,7 +53,7 @@ function M.create_buffer_with_diff(hunk_content)
 					vim.api.nvim_command('split')
 					return error
 				end
-				vim.cmd('edit')
+				vim.cmd('silent edit')
 			end,
 			buffer = buf
 		}
