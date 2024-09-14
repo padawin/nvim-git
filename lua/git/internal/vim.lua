@@ -2,9 +2,12 @@ local git = require("lua.git.internal.git")
 local M = {}
 
 local close_diff_window = function(buf, file_path)
-	local error = git.stage_patch(file_path)
-	if error ~= nil then
-		return error
+	local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+	if #lines ~= 1 then -- A buffer has at least one line, even if empty
+		local error = git.stage_patch(file_path)
+		if error ~= nil then
+			return error
+		end
 	end
 	vim.api.nvim_buf_delete(buf, {})
 	os.remove(file_path)
