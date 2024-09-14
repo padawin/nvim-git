@@ -1,3 +1,6 @@
+local table_utils = require("lua.git.internal.table")
+local hunk = require("lua.git.internal.hunk")
+
 local M = {}
 
 function M.new(header)
@@ -25,4 +28,13 @@ function M.find_hunk_after_line(file, line_number)
 		end
 	end
 end
+
+function M.get_content(file)
+	local content = file.header
+	for _, h in pairs(file.hunks) do
+		content = table_utils.merge(content, hunk.get_content(h))
+	end
+	return content
+end
+
 return M

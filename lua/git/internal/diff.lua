@@ -1,5 +1,6 @@
 local file = require("lua.git.internal.file")
 local hunk = require("lua.git.internal.hunk")
+local table_utils = require("lua.git.internal.table")
 -- Creates an object for the module.
 local M = {}
 
@@ -40,6 +41,14 @@ function M.parse(diff)
 		table.insert(files, curr_file)
 	end
 	return files
+end
+
+function M.get_files_content(files)
+	local content = {}
+	for _, f in pairs(files) do
+		content = table_utils.merge(content, file.get_content(f))
+	end
+	return content
 end
 
 return M
