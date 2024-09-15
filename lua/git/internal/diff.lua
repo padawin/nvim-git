@@ -15,6 +15,7 @@ function M.parse(diff)
 				file.add_hunk(curr_file, currentHunk)
 				table.insert(files, curr_file)
 			end
+			currentHunk = nil
 			curr_file = file.new(line)
 			state = "in_header"
 		elseif line:sub(1, 1) == '@' then
