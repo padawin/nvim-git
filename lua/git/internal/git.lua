@@ -25,7 +25,7 @@ function M.is_git_dir()
 	return success
 end
 
-function M.get_file_diff(file_path)
+function M.get_diff(file_path)
 	if file_path == nil then file_path = "" end
 	local command = "git diff " .. file_path
 	local success, output = execute_command(command)

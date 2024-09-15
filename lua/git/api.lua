@@ -11,7 +11,7 @@ function M.run_next_hunk_diff()
 	if not git.is_git_dir() then return end
 
 	local curr_line, _ = table.unpack(vim.api.nvim_win_get_cursor(0))
-	local file_diff = git.get_file_diff(vim.fn.expand('%'))
+	local file_diff = git.get_diff(vim.fn.expand('%'))
 	local files = diff.parse(file_diff)
 	local h = file.find_hunk_after_line(files[1], curr_line)
 	if h == nil then
