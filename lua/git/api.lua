@@ -7,6 +7,22 @@ local table_utils = require("lua.git.internal.table")
 
 local M = {}
 
+local run_diff = function(file_path)
+	if not git.is_git_dir() then return end
+
+	local file_diff = git.get_diff(file_path)
+	local files = diff.parse(file_diff)
+	editor.create_buffer_with_diff(diff.get_files_content(files))
+end
+
+function M.run_diff()
+	run_diff()
+end
+
+function M.run_file_diff()
+	run_diff(vim.fn.expand('%'))
+end
+
 function M.run_next_hunk_diff()
 	if not git.is_git_dir() then return end
 
