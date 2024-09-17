@@ -36,6 +36,13 @@ The `:NGitCommit` command opens in a new tab a vertical split with:
 - on one side an empty buffer to write the commit message,
 - on the other side a buffer containing the staged changes.
 
+## Mappings
+
+The following mappings are available:
+
+- `ga` (overrides native Vim mapping): Executes `:NGitStage` to start staging changes.
+- `gc`: Executes `:NGitCommit` To commit changes.
+
 ## Bugs/Limitations
 
 The plugin is probably heavily tailored to my needs, and lacks in features (I
