@@ -2,6 +2,7 @@ local git = require("lua.git.internal.git")
 local diff = require("lua.git.internal.diff")
 local hunk = require("lua.git.internal.hunk")
 local table_utils = require("lua.git.internal.table")
+local string_utils = require("lua.utils.string")
 local M = {}
 
 local close_diff_window = function(buf, file_path)
@@ -58,6 +59,44 @@ function M.create_buffer_with_diff(hunk_content)
 			buffer = buf
 		}
 	)
+end
+
+function M.create_commit_view()
+	local staged_content = string_utils.split_lines(git.get_staged_diff())
+	if #staged_content == 0 then
+		print("No changes staged to commit.")
+		return
+	end
+
+	-- Open staged changes on the side
+	vim.api.nvim_command('tabnew')
+	local diff_buf = vim.api.nvim_get_current_buf()
+	vim.api.nvim_buf_set_lines(diff_buf, 0, -1, true, staged_content)
+	vim.api.nvim_buf_set_option(diff_buf, 'filetype', 'diff')
+	vim.cmd('set readonly')
+	vim.cmd('set nomodified')
+
+	-- Open buffer for commit message
+	local file_path = os.tmpname()
+	vim.api.nvim_command('vnew')
+	local msg_buf = vim.api.nvim_get_current_buf()
+	vim.cmd('edit ' .. file_path)
+	vim.api.nvim_create_autocmd(
+		'WinClosed',
+		{
+			callback = function()
+				vim.cmd('write')
+				git.commit(file_path)
+				vim.api.nvim_buf_delete(msg_buf, {})
+				vim.api.nvim_buf_delete(diff_buf, {})
+			end,
+			buffer = msg_buf
+		}
+	)
+
+	-- Swap windows
+	vim.api.nvim_input("<c-w><c-r>")
+
 end
 
 return M

@@ -14,3 +14,5 @@ let g:loaded_gitplugin = 1
 command! -nargs=0 Stage lua require("git.api").run_diff()
 command! -nargs=0 StageFile lua require("git.api").run_file_diff()
 command! -nargs=0 StageNextHunk lua require("git.api").run_next_hunk_diff()
+
+command! -nargs=0 Commit lua require("git.api").commit()

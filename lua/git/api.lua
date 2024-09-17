@@ -36,4 +36,9 @@ function M.run_next_hunk_diff()
 	editor.create_buffer_with_diff(table_utils.merge(files[1].header, hunk.get_content(h)))
 end
 
+function M.commit()
+	if not git.is_git_dir() then return end
+
+	editor.create_commit_view()
+end
 return M

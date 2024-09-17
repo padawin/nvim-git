@@ -44,4 +44,25 @@ function M.stage_patch(file_path)
 	return error
 end
 
+function M.get_staged_diff()
+	local command = "git diff --cached"
+	local success, output = execute_command(command)
+	if not success then
+		print("Error: could not execute command: " .. command)
+		return ""
+	end
+	return output
+end
+
+function M.commit(message_file)
+	local command = "git commit -F " .. message_file .. " 2>&1"
+	local success, output, error = execute_command(command)
+	if not success then
+		print("Error while committing: " .. error)
+		return ""
+	else
+		print(output)
+	end
+end
+
 return M
