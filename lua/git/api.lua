@@ -1,9 +1,9 @@
-local diff = require("lua.git.internal.diff")
-local file = require("lua.git.internal.file")
-local git = require("lua.git.internal.git")
-local hunk = require("lua.git.internal.hunk")
-local editor = require("lua.git.internal.vim")
-local table_utils = require("lua.git.internal.table")
+local diff = require("git.internal.diff")
+local file = require("git.internal.file")
+local git = require("git.internal.git")
+local hunk = require("git.internal.hunk")
+local editor = require("git.internal.vim")
+local table_utils = require("git.internal.table")
 
 local M = {}
 

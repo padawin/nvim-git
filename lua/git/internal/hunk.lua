@@ -1,4 +1,4 @@
-local table_utils = require("lua.git.internal.table")
+local table_utils = require("git.internal.table")
 local M = {}
 
 local build_header = function(hunk)

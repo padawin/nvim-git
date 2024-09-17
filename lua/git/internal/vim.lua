@@ -1,7 +1,7 @@
-local git = require("lua.git.internal.git")
-local diff = require("lua.git.internal.diff")
-local hunk = require("lua.git.internal.hunk")
-local string_utils = require("lua.utils.string")
+local git = require("git.internal.git")
+local diff = require("git.internal.diff")
+local hunk = require("git.internal.hunk")
+local string_utils = require("utils.string")
 local M = {}
 
 local close_diff_window = function(buf, file_path)

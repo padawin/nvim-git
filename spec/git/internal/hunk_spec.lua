@@ -1,4 +1,4 @@
-local hunk = require("lua.git.internal.hunk")
+local hunk = require("git.internal.hunk")
 local ins = require 'inspect'
 
 describe("hunk test", function()

@@ -1,6 +1,6 @@
-local file = require("lua.git.internal.file")
-local hunk = require("lua.git.internal.hunk")
-local table_utils = require("lua.git.internal.table")
+local file = require("git.internal.file")
+local hunk = require("git.internal.hunk")
+local table_utils = require("git.internal.table")
 -- Creates an object for the module.
 local M = {}
 

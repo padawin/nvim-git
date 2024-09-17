@@ -1,5 +1,5 @@
-local table_utils = require("lua.git.internal.table")
-local hunk = require("lua.git.internal.hunk")
+local table_utils = require("git.internal.table")
+local hunk = require("git.internal.hunk")
 
 local M = {}
 
