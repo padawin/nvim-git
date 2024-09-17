@@ -55,7 +55,7 @@ function M.get_staged_diff()
 end
 
 function M.commit(message_file)
-	local command = "git commit -F " .. message_file .. " 2>&1"
+	local command = "git commit --no-verify -F " .. message_file .. " 2>&1"
 	local success, output, error = execute_command(command)
 	if not success then
 		print("Error while committing: " .. error)
