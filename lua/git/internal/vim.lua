@@ -1,7 +1,6 @@
 local git = require("lua.git.internal.git")
 local diff = require("lua.git.internal.diff")
 local hunk = require("lua.git.internal.hunk")
-local table_utils = require("lua.git.internal.table")
 local string_utils = require("lua.utils.string")
 local M = {}
 
