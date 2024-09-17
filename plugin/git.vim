@@ -11,11 +11,11 @@ endif
 let g:loaded_gitplugin = 1
 
 " Exposes the plugin's functions for use as commands in Neovim.
-command! -nargs=0 Stage lua require("git.api").run_diff()
-command! -nargs=0 StageFile lua require("git.api").run_file_diff()
-command! -nargs=0 StageNextHunk lua require("git.api").run_next_hunk_diff()
+command! -nargs=0 NGitStage lua require("git.api").run_diff()
+command! -nargs=0 NGitStageFile lua require("git.api").run_file_diff()
+command! -nargs=0 NGitStageNextHunk lua require("git.api").run_next_hunk_diff()
 
-command! -nargs=0 Commit lua require("git.api").commit()
+command! -nargs=0 NGitCommit lua require("git.api").commit()
 
-nnoremap ga :Stage<CR>
-nnoremap gc :Commit<CR>
+nnoremap ga :NGitStage<CR>
+nnoremap gc :NGitCommit<CR>
