@@ -16,3 +16,6 @@ command! -nargs=0 StageFile lua require("git.api").run_file_diff()
 command! -nargs=0 StageNextHunk lua require("git.api").run_next_hunk_diff()
 
 command! -nargs=0 Commit lua require("git.api").commit()
+
+nnoremap ga :Stage<CR>
+nnoremap gc :Commit<CR>
